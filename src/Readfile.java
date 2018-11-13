@@ -13,7 +13,7 @@ class Readfile {
 	//File fir= new File(file);
 	FileReader FR=new FileReader(file);
 	BufferedReader BR=new BufferedReader(FR);
-	data= new double[250];
+	data= new double[600];
 	int i=0;
 	String str=null;
 	while(((str=BR.readLine())!=null)&&(i<data.length)){

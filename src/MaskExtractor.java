@@ -3,9 +3,11 @@ public class MaskExtractor {
 
 	int windowsize;
 	Data[] datas;
-	public MaskExtractor(int windowsize,Data[] datas){
+	int length;
+	public MaskExtractor(int windowsize,Data[] datas,int length){
 		this.windowsize=windowsize;
 		this.datas=datas;
+		this.length=length;
 	}
 	public void getfeature(int a[],String featuretype,StringBuffer sb){
 		boolean allpositive=true;
@@ -76,7 +78,7 @@ public class MaskExtractor {
 		b[0]=0;
 		int i=0;
 		String featuretype="wrong";
-		while((b[0]+windowsize)<datas.length){
+		while((b[0]+windowsize)<length){
 			getfeature(b,featuretype,sb);
 		}
 			

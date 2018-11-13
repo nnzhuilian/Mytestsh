@@ -2,13 +2,13 @@
 public class FeatureExtractor {
 	int windowsize;
 	Data[] datas;
-	int upn=0;
-	int downn=0;
-	int lastdown=0;
-//	int datalen=0;
-	public FeatureExtractor(int windowsize,Data[] datas){
+	
+	int length;
+
+	public FeatureExtractor(int windowsize,Data[] datas,int length){
 		this.windowsize=windowsize;
 		this.datas=datas;
+		this.length=length;
 	}
 	public void getfeature(int a[],String featuretype,StringBuffer sb){
 		boolean allpositive=true;
@@ -42,14 +42,11 @@ public class FeatureExtractor {
 		if((allpositive==false)&&(allnagtive==false)&&(allup==true)){
 			featuretype=FeatureType.EXUP;
 			sb.append(featuretype);
-			upn++;
 			return;
 		}
 		if((allpositive==false)&&(allnagtive==false)&&(alldown==true)){
 			featuretype=FeatureType.EXDOWN;
 			sb.append(featuretype);
-			downn++;
-			lastdown=a[0];
 			return;
 		}
 		if((allpositive==true)&&(alldown==false)&&(allup==false)){
@@ -93,23 +90,12 @@ public class FeatureExtractor {
 		b[0]=0;
 		int i=0;
 		String featuretype="wrong";
-		while((b[0]+windowsize)<datas.length){
+		while((b[0]+windowsize)<length){
 			getfeature(b,featuretype,sb);
 		}
 			
 		return sb.toString();
 	}
-	public int getUpn() {
-		return upn;
-	}
-	public int getDownn() {
-		return downn;
-	}
-	public int getLastdown() {
-		return lastdown;
-	}
-	public int getDatalen() {
-		return datas.length;
-	}
+
 	
 }

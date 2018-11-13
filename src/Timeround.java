@@ -2,35 +2,15 @@
 public class Timeround {
 	int windowsize;
 	Data[] datas;
-	int lastdown;
-	int downs;
-	int i=0;
-	public Timeround(int windowsize,Data[] datas,int lastdown,int downs){
+	int cycnumbers;
+	int length;
+	public Timeround(int windowsize,Data[] datas,int cycnumbers,int length){
 		this.windowsize=windowsize;
 		this.datas=datas;
-		this.lastdown=lastdown;
-		this.downs=downs;
+		this.cycnumbers=cycnumbers;
+		this.length=length;
 	}
 	
-	private int getCNumbers(){
-		boolean flag=true;//前一个符号，true为正，flase为负
-		for(int j=0;j<(datas.length/windowsize)*windowsize;j++){
-			if(datas[j].symbol>0&&flag==true){
-				
-			}
-			if(datas[j].symbol<=0&&flag==true){
-				flag=false;
-				i++;
-			}
-			if(datas[j].symbol>0&&flag==false){
-				flag=true;
-			}
-			if(datas[j].symbol<=0&&flag==false){
-				
-			}
-		}
-		return i-1;
-	}
 
 	private double getFirstDown(){
 		boolean flag=true;
@@ -55,7 +35,7 @@ public class Timeround {
 	}
 	private double getLastDown(){
 		boolean flag=true;
-		int i=datas.length-1;
+		int i=length-1;
 		double x1=0;
 		double y1=0;
 		double x2=0;
@@ -75,7 +55,7 @@ public class Timeround {
 		return (-y1*(x2-x1))/(y2-y1)+x1;
 	}
 	public double getCycle(){
-		return (getLastDown()-getFirstDown())/getCNumbers();
+		return (getLastDown()-getFirstDown())/cycnumbers;
 	}
 	
 }
