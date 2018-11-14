@@ -18,19 +18,19 @@ public class MaskSeed {
 			double value=maskseed.getValue()-(cycle*(int)(maskseed.getValue()/cycle));
 			if((0<=value)&&(value<=(cycle/4))){
 				maskseed.setSymbol(1);
-				maskseed.setCompare(1);
+				maskseed.setCompare(0);
 			}
 			if(((cycle/4)<value)&&(value<=(cycle/2))){
 				maskseed.setSymbol(-1);
-				maskseed.setCompare(1);
+				maskseed.setCompare(0);
 			}
 			if(((cycle/2)<value)&&(value<=(3*cycle/4))){
 				maskseed.setSymbol(-1);
-				maskseed.setCompare(0);
+				maskseed.setCompare(1);
 			}
 			if(((3*cycle/4)<value)&&(value<=cycle)){
 				maskseed.setSymbol(1);
-				maskseed.setCompare(0);
+				maskseed.setCompare(1);
 			}
 		}
 	}
@@ -42,7 +42,8 @@ public class MaskSeed {
 	public String printmask(int windowsize){
 		SeedInitial();
 		MaskExtractor mask=new MaskExtractor(windowsize, maskseeds,length);
-		String maskk=mask.getfeatureSequence();
+		//String maskk=mask.getfeatureSequence();
+		String maskk=mask.getBandFeature();
 		//System.out.println(maskk);
 		System.out.println(" ");
 		return maskk;

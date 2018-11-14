@@ -10,7 +10,7 @@ public class FeatureExtractor {
 		this.datas=datas;
 		this.length=length;
 	}
-	public void getfeature(int a[],String featuretype,StringBuffer sb){
+	public String getfeature(int a[],String featuretype){
 		boolean allpositive=true;
 		boolean allnagtive=true;
 		boolean allup=true;
@@ -31,56 +31,47 @@ public class FeatureExtractor {
 		}
 		if((allpositive==true)&&(allup==true)){
 			featuretype=FeatureType.UP;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if((allpositive==true)&&(alldown==true)){
 			featuretype=FeatureType.Down;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if((allpositive==false)&&(allnagtive==false)&&(allup==true)){
 			featuretype=FeatureType.EXUP;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if((allpositive==false)&&(allnagtive==false)&&(alldown==true)){
 			featuretype=FeatureType.EXDOWN;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if((allpositive==true)&&(alldown==false)&&(allup==false)){
 			featuretype=FeatureType.PEAK;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if(allnagtive==true){
 			featuretype=FeatureType.VALID;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if(datas[a[0]-windowsize].symbol<0){
 			featuretype=FeatureType.EXUP;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if(datas[a[0]-windowsize].symbol>0){
 			featuretype=FeatureType.EXDOWN;
-			sb.append(featuretype);
-			return;
+			return featuretype;
 		}
 		if(datas[a[0]-windowsize].symbol==0){
 			if(datas[a[0]-windowsize+1].symbol<0){
 				featuretype=FeatureType.EXDOWN;
-				sb.append(featuretype);
-				return;
+				return featuretype;
 			}
 			if(datas[a[0]-windowsize+1].symbol>0){
 				featuretype=FeatureType.EXUP;
-				sb.append(featuretype);
-				return;
+				return featuretype;
 			}
 		}
+		return featuretype; 
 	}
 	
 	public String getfeatureSequence(){//²»´ø¼ä¸ô
@@ -91,7 +82,7 @@ public class FeatureExtractor {
 		int i=0;
 		String featuretype="wrong";
 		while((b[0]+windowsize)<length){
-			getfeature(b,featuretype,sb);
+			sb.append(getfeature(b,featuretype));
 		}
 			
 		return sb.toString();
@@ -103,10 +94,15 @@ public class FeatureExtractor {
 		b[0]=0;
 		int i=0;
 		String featuretype="wrong";
-		int flag=true;
+		boolean flag=true;
 		while((b[0]+windowsize)<length){
-			getfeature(b,featuretype,sb);
-			
+			if(flag==true){
+			sb.append(getfeature(b,featuretype));
+			flag=false;
+			}else{
+				getfeature(b,featuretype);
+				flag=true;
+			}
 		}
 			
 		return sb.toString();

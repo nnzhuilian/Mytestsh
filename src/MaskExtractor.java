@@ -9,7 +9,7 @@ public class MaskExtractor {
 		this.datas=datas;
 		this.length=length;
 	}
-	public void getfeature(int a[],String featuretype,StringBuffer sb){
+	public String getfeature(int a[],String featuretype){
 		boolean allpositive=true;
 		boolean allnagtive=true;
 		boolean allup=true;
@@ -29,46 +29,38 @@ public class MaskExtractor {
 			//window[j]=datas[i++];
 		}
 		if((allpositive==true)&&(allup==true)){
-			featuretype=FeatureType.UP;
-			sb.append(featuretype);
-			return;
+			featuretype=MaskType.PUP;
+			return featuretype;
 		}
 		if((allpositive==true)&&(alldown==true)){
-			featuretype=FeatureType.Down;
-			sb.append(featuretype);
-			return;
+			featuretype=MaskType.PDown;
+			return featuretype;
 		}
 		if((allpositive==false)&&(allnagtive==false)&&(allup==true)){
-			featuretype=FeatureType.EXUP;
-			sb.append(featuretype);
-			
-			return;
+			featuretype=MaskType.EXUP;
+			return featuretype;
 		}
 		if((allpositive==false)&&(allnagtive==false)&&(alldown==true)){
-			featuretype=FeatureType.EXDOWN;
-			sb.append(featuretype);
-			return;
+			featuretype=MaskType.EXDOWN;
+			return featuretype;
 		}
 		if((allpositive==true)&&(alldown==false)&&(allup==false)){
-			featuretype=FeatureType.PEAK;
-			sb.append(featuretype);
-			return;
+			featuretype=MaskType.PEAK;
+			return featuretype;
 		}
 		if(allnagtive==true&&(alldown==false)&&(allup==false)){
-			featuretype=FeatureType.VALID;
-			sb.append(featuretype);
-			return;
+			featuretype=MaskType.VALID;
+			return featuretype;
 		}
 		if((allnagtive==true)&&(allup==true)){
-			featuretype=FeatureType.UP;
-			sb.append(featuretype);
-			return;
+			featuretype=MaskType.VUP;
+			return featuretype;
 		}
 		if((allnagtive==true)&&(alldown==true)){
-			featuretype=FeatureType.Down;
-			sb.append(featuretype);
-			return;
+			featuretype=MaskType.VDown;
+			return featuretype;
 		}
+		return featuretype;
 	}
 	
 	public String getfeatureSequence(){
@@ -79,11 +71,30 @@ public class MaskExtractor {
 		int i=0;
 		String featuretype="wrong";
 		while((b[0]+windowsize)<length){
-			getfeature(b,featuretype,sb);
+			sb.append(getfeature(b,featuretype));
 		}
 			
 		return sb.toString();
 	}
-	
+	public String getBandFeature(){
+		StringBuffer sb=new StringBuffer();
+		//Data[] window=new Data[windowsize];
+		int b[]=new int[1];
+		b[0]=0;
+		int i=0;
+		String featuretype="wrong";
+		boolean flag=true;
+		while((b[0]+windowsize)<length){
+			if(flag==true){
+			sb.append(getfeature(b,featuretype));
+			flag=false;
+			}else{
+				getfeature(b,featuretype);
+				flag=true;
+			}
+		}
+			
+		return sb.toString();
+	}
 }
 
