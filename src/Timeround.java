@@ -31,6 +31,7 @@ public class Timeround {
 				flag=false;
 			}
 		}
+		System.out.println("开始相邻坐标:"+x1+","+x2);
 		return (-y1*(x2-x1))/(y2-y1)+x1;
 	}
 	private double getLastDown(){
@@ -52,14 +53,17 @@ public class Timeround {
 				flag=false;
 			}
 		}
+		System.out.println("结束相邻坐标:"+x1+","+x2);
 		return (-y1*(x2-x1))/(y2-y1)+x1;
 	}
 	public double getCycle(){
-		System.out.println("周期计算开始位置："+getFirstDown());
-		System.out.println("周期计算结束位置："+getLastDown());
-		System.out.println("总周期时间："+(getLastDown()-getFirstDown()));
-		System.out.println("周其长度："+((getLastDown()-getFirstDown())/cycnumbers));
-		return (getLastDown()-getFirstDown())/cycnumbers;
+		double fd=getFirstDown();
+		double ld=getLastDown();
+		System.out.println("周期计算开始位置："+fd);
+		System.out.println("周期计算结束位置："+ld);
+		System.out.println("总周期时间："+(ld-fd));
+		System.out.println("周其长度："+((ld-fd)/cycnumbers));
+		return (ld-fd)/cycnumbers;
 	}
 	
 }

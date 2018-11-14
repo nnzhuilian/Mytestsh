@@ -83,7 +83,7 @@ public class FeatureExtractor {
 		}
 	}
 	
-	public String getfeatureSequence(){
+	public String getfeatureSequence(){//²»´ø¼ä¸ô
 		StringBuffer sb=new StringBuffer();
 		//Data[] window=new Data[windowsize];
 		int b[]=new int[1];
@@ -92,6 +92,21 @@ public class FeatureExtractor {
 		String featuretype="wrong";
 		while((b[0]+windowsize)<length){
 			getfeature(b,featuretype,sb);
+		}
+			
+		return sb.toString();
+	}
+	public String getBandFeature(){
+		StringBuffer sb=new StringBuffer();
+		//Data[] window=new Data[windowsize];
+		int b[]=new int[1];
+		b[0]=0;
+		int i=0;
+		String featuretype="wrong";
+		int flag=true;
+		while((b[0]+windowsize)<length){
+			getfeature(b,featuretype,sb);
+			
 		}
 			
 		return sb.toString();

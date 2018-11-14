@@ -1,10 +1,12 @@
 import java.io.File;
+import java.util.Arrays;
 
 public class Main {
-	public static final int CYCN=6;//周期数
-	public static final int WINDOW=7;//窗口大小
+	public static final int CYCN=5;//周期数
+	public static final int WINDOW=3;//窗口大小
 	public static void main(String args[]) throws Exception {
-		Masking[] com=new Masking[26];
+		Masking[] com=new Masking[26];//加码
+		String[] ff=new String[26];//不加码
 		int cc=0;
 		File dirfile = new File(".\\实验数据\\data");
 		File files[] = dirfile.listFiles();
@@ -19,6 +21,8 @@ public class Main {
 			FeatureExtractor featureExtractor1 = new FeatureExtractor(WINDOW, resultdatas1,gl);
 			
 			String feature=featureExtractor1.getfeatureSequence();
+			System.out.println(feature);
+			ff[cc]=feature;
 			//System.out.println(feature);
 			/*
 			 * for(int i=0;i<resultdatas1.length;i++){
@@ -36,7 +40,11 @@ public class Main {
 		    com[cc++]=mk;   
 		}	
 		for(int k=0;k<13;k++){
-			System.out.println(compare(com[2*k].MaskerI(),com[2*k+1].MaskerI()));
+			System.out.println(k+":"+compare(com[2*k].MaskerI(),com[2*k+1].MaskerI()));
+		}
+		System.out.println(" ");
+		for(int k=0;k<13;k++){
+			System.out.println(k+":"+compare(StoI(ff[2*k]),StoI(ff[2*k+1])));
 		}
 
 	}
@@ -50,5 +58,15 @@ public class Main {
 		    	}
 		    	return i+" "+max;
 		    }
+	
+	public static int[] StoI(String a) {
+		int mm[] = new int[a.length()];
+		for (int i = 0; i < a.length(); i++) {
+			mm[i] = Integer.parseInt(a.charAt(i) + "");
+		}
+		return mm;
+	}
+	
+	
 		
 }
