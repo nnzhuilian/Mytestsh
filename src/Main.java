@@ -2,8 +2,8 @@ import java.io.File;
 import java.util.Arrays;
 
 public class Main {
-	public static final int CYCN=6;//周期数
-	public static final int WINDOW=3;//窗口大小
+	public static final int CYCN=5;//周期数
+	public static final int WINDOW=5;//窗口大小
 	public static void main(String args[]) throws Exception {
 		Masking[] com=new Masking[26];//加码
 		String[] ff=new String[26];//不加码
@@ -20,8 +20,8 @@ public class Main {
 			
 			FeatureExtractor featureExtractor1 = new FeatureExtractor(WINDOW, resultdatas1,gl);
 			
-			//String feature=featureExtractor1.getfeatureSequence();
-			String feature=featureExtractor1.getBandFeature();
+			String feature=featureExtractor1.getfeatureSequence();
+			//String feature=featureExtractor1.getBandFeature();
 			System.out.println(feature);
 			ff[cc]=feature;
 			//System.out.println(feature);
@@ -53,12 +53,12 @@ public class Main {
 	public static String compare(int a[],int b[]){
 		    	int i=0;
 		    	int max=a.length>=b.length?b.length:a.length;
-		    	for (int j=0;j<128;j++){
+		    	for (int j=0;j<max;j++){
 		    		if(a[j]==b[j]){
 		    			i++;
 		    		}
 		    	}
-		    	return i+" "+max;
+		    	return i+" "+max;//返回总bit和匹配比特
 		    }
 	
 	public static int[] StoI(String a) {

@@ -98,6 +98,7 @@ public class FeatureExtractor {
 		while((b[0]+windowsize)<length){
 			if(flag==true){
 			sb.append(getfeature(b,featuretype));
+			b[0]=b[0]-windowsize+1;
 			flag=false;
 			}else{
 				getfeature(b,featuretype);
