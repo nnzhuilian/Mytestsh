@@ -72,6 +72,7 @@ public class MaskExtractor {
 		String featuretype="wrong";
 		while((b[0]+windowsize)<length){
 			sb.append(getfeature(b,featuretype));
+			//b[0]=b[0]-windowsize+2;
 		}
 			
 		return sb.toString();
