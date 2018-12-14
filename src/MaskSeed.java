@@ -42,8 +42,8 @@ public class MaskSeed {
 	public String printmask(int windowsize){
 		SeedInitial();
 		MaskExtractor mask=new MaskExtractor(windowsize, maskseeds,length);
-		String maskk=mask.getfeatureSequence();
-		//String maskk=mask.getBandFeature();
+		//String maskk=mask.getfeatureSequence();
+		String maskk=mask.getBandFeature();
 		//System.out.println(maskk);
 		System.out.println(" ");
 		return maskk;

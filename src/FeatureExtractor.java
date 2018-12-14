@@ -15,6 +15,7 @@ public class FeatureExtractor {
 		boolean allnagtive=true;
 		boolean allup=true;
 		boolean alldown=true;
+		//boolean isfirst=true;
 		for(int j=0;j<windowsize;j++){
 			if(datas[a[0]].getSymbol()>=0){
 				allnagtive=false;
@@ -39,16 +40,22 @@ public class FeatureExtractor {
 		}
 		if((allpositive==false)&&(allnagtive==false)&&(allup==true)){
 			featuretype=FeatureType.EXUP;
+			//isfirst=true;
 			return featuretype;
 		}
 		if((allpositive==false)&&(allnagtive==false)&&(alldown==true)){
 			featuretype=FeatureType.EXDOWN;
 			return featuretype;
 		}
-		if((allpositive==true)&&(alldown==false)&&(allup==false)){
+		if((allpositive==true)&&(alldown==false)&&(allup==false)){//&&(isfirst==true)){
 			featuretype=FeatureType.PEAK;
+			//isfirst=false;
 			return featuretype;
 		}
+		/*if((allpositive==true)&&(alldown==false)&&(allup==false)&&(isfirst==false)){
+			featuretype=FeatureType.Down;
+			return featuretype;
+		}*/
 		if(allnagtive==true){
 			featuretype=FeatureType.VALID;
 			return featuretype;
@@ -83,6 +90,7 @@ public class FeatureExtractor {
 		String featuretype="wrong";
 		while((b[0]+windowsize)<length){
 			sb.append(getfeature(b,featuretype));
+			//b[0]=b[0]-windowsize+2;
 		}
 			
 		return sb.toString();
@@ -98,11 +106,11 @@ public class FeatureExtractor {
 		while((b[0]+windowsize)<length){
 			if(flag==true){
 			sb.append(getfeature(b,featuretype));
-			b[0]=b[0]-windowsize+1;
 			flag=false;
 			}else{
 				getfeature(b,featuretype);
 				flag=true;
+				
 			}
 		}
 			
